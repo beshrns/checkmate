@@ -75,7 +75,7 @@ for k = 1:length(fsmbHandle)
   transitionsAll = sf('get',parent_chart,'.transitions');
   states = {};
   for l = 1:length(state_id)
-    state_number = get_state_number(state_id(l));
+    state_number = get_state_number(state_id(l))+1;
     states{state_number}.name = sf('get',state_id(l),'.name');
     transitions = sf('find',transitionsAll,'.src.id',state_id(l));
     states{state_number}.terminal = isempty(transitions);
@@ -182,8 +182,8 @@ for k = 1:length(blkHandle)
     yoffset = -1.2*height;
     anchor = block_pos(1:2) + [xoffset yoffset];
     block_pos = [anchor anchor+[width height]];
-    towsname = unique_name(sys,'To Workspace');
-    add_block('built-in/To Workspace',[sys '/' towsname], ...
+    towsname = unique_name(sys,'ToWorkspace');
+    add_block('built-in/ToWorkspace',[sys '/' towsname], ...
               'Position',block_pos,'VariableName',[block_name '_out'], ...
               'MaxDataPoints','inf');
     add_line(sys,[block_name '/1'],[towsname '/1'])

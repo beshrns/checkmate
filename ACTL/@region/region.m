@@ -91,13 +91,13 @@ nwords = ceil(N/BIT_MAX);
 table = uint32(zeros(nwords,1));
 if nwords > 0
   for k = 1:nwords-1
-    table(k) = bitcmp(0,BIT_MAX);
+    table(k) = bitcmpOld(0,BIT_MAX);
   end
   remainder = rem(N,BIT_MAX);
   if remainder > 0
-    table(nwords) = bitcmp(0,remainder);
+    table(nwords) = bitcmpOld(0,remainder);
   else
-    table(nwords) = bitcmp(0,BIT_MAX);
+    table(nwords) = bitcmpOld(0,BIT_MAX);
   end   
   return
 end

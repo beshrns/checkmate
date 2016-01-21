@@ -82,11 +82,11 @@ if ~isempty(find_system('SearchDepth',0,'Name',clipboard))
     close_system(clipboard,0)
 end
 
-if strcmp(get_param(GLOBAL_SYSTEM,'Dirty'),'on')
-    fprintf(1,'Please save the system ''%s'' before running explore.\n', ...
-        GLOBAL_SYSTEM)
-    return
-end
+% if strcmp(get_param(GLOBAL_SYSTEM,'Dirty'),'on')
+%     fprintf(1,'Please save the system ''%s'' before running explore.\n', ...
+%         GLOBAL_SYSTEM)
+%     return
+% end
 save_system(GLOBAL_SYSTEM,['explore_temp' filesep clipboard]);
 close_system(clipboard,1);
 %

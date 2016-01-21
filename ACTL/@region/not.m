@@ -25,12 +25,12 @@ N = s.nstate;
 BIT_MAX = s.wordsize;
 nword = ceil(N/BIT_MAX);
 for idx = 1:nword-1
-  s.table(idx) = bitcmp(s.table(idx),BIT_MAX);
+  s.table(idx) = bitcmpOld(s.table(idx),BIT_MAX);
 end
 remainder = rem(N,BIT_MAX);
 if remainder == 0
-  s.table(nword) = bitcmp(s.table(nword),BIT_MAX);
+  s.table(nword) = bitcmpOld(s.table(nword),BIT_MAX);
 else
-  s.table(nword) = bitcmp(s.table(nword),remainder);
+  s.table(nword) = bitcmpOld(s.table(nword),remainder); %bitset(s.table(nword),remainder,~bitget(s.table(nword),remainder));
 end
 return

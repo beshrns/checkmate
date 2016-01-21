@@ -15,6 +15,16 @@
     <a name="top"></a><b><font size="+2">Using the CheckMate
     Verification Tool</font></b> 
 
+    <p><a href="#frontend">Modeling Front End</a><br>
+    <a href="#parameters">Entering Parameters</a><br>
+    <a href="#simulation">Simulating the Model</a><br>
+    <a href="#explore">Running the Exploration</a><br>
+    <a href="#runverification">Running the Verification</a><br>
+    <a href="#viewingresults">Viewing the Results of a
+    Verification</a><br>
+    <a href="#hints">Useful Hints</a></p>
+		<p><a href="../main.htm">Return to Main Documentation Page</a></P>
+    <hr width="100%">
 
     <p><a name="frontend"></a><b><font size="+2">Modeling Front
     End</font></b></p>
@@ -24,8 +34,9 @@
     <b><tt>simulink</tt></b> in the Matlab command window.This
     will open the Simulink Library Browser containing the special
     CheckMate blocks along with some standard Matlab blocks. It
-    is best to use only the blocks in this category for modeling as
-    CheckMate does not support any other Simulink blocks.</p>
+    is best to use only the blocks in this window for modeling as
+    CheckMate does not support all Simulink blocks.</p>
+
     <center>
       <p> </p>
 
@@ -49,15 +60,20 @@
       Each block takes a single discrete input <i>u</i> and
       outputs the continuous state vector <i>x</i> according to
       the dynamics selected by <i>u</i>. The switched dynamics
-      should be entered as a MATLAB function. The function can 
-	  be implemented either as an M-file or as a mex file. 
-	  See the section 
+      should be entered as an m-file function.  See the section 
 			labeled <i>Entering Parameters</i> for a description of how the
 			user-defined switched dynamics m-files are created.  The name of this
       switching function can then be entered as a parameter in
-      the corresponding SCSB.  <br>
-	  
-	  <strong>The option of using parameter constraints is currently disabled.</strong> <br>
+      the corresponding SCSB.  If parameters are present in the model,
+			information about them should be entered in the last two fields
+			in the SCSB dialog. The <i>Default Parameter</i> field should contain
+			the value of the parameter that is to be used when the system
+			is simulated.  The <i>Parameter Constraints</i> field should contain
+			a pointer to a linearcon object that represents the range
+			of parameters to be analyzed during <i>Exploration</i> and <i>Verification</i>.
+			See the <i>Entering Parameters</i> section for a description of how to
+			specify parameter regions as well as how to specify the <i>Analysis 
+			Region</i> and the <i>Initial Continuous Set</i>. 
 
       <center>
         <p><img src="imageKMA.JPG" border="0" height="211" width=
@@ -70,14 +86,11 @@
       </p>
 
       <p><b>Polyhedral Threshold Block (PTHB)</b><br>
-	  CheckMate uses polyhedra to define sets in continuous state space. 
-	  PTHBs can be used to construct conditions using polyhedra, which
-	  are then used as switching surfaces in the state space. A PTHB block 
-	  must be associated with a 'linearcon' object in the base workspace.
-	  
-	  See the
+      PTHBs can be used to construct switching surfaces and
+      regions in the state space. Within each PTHB, a linear
+      constraint object is used to define a polyhedron. See the
       <i>entering parameters</i> section for a description of how
-      to use 'linearcon' objects to define PTHB regions.
+      to use linear constraint objects to define PTHB regions.
       The PTHB takes as input the continuous state vector
       <i>x</i> and outputs a 1 if <i>x</i> satisfies the
       constraints, and a 0 otherwise.</p>
@@ -94,7 +107,7 @@
       </p>
 
       <p><b>Finite State Machine Block (FSMB)</b><br>
-      The discrete dynamics of the hybrid system are entered using
+      The discrete dynamics of the system are entered using
       FSMBs.  These are standard Stateflow machines with a few
       restrictions from CheckMate.  The inputs to the block must
       obey the following restrictions.  Each component of the
@@ -107,7 +120,9 @@
         <p><img src="image25M.JPG" height="259" width="482"></p>
       </center>
     </blockquote>
-     
+    <a href="ver_mechanics.htm#top"><font size="-1">return to
+    top</font></a> <br>
+      
 
     <p><a name="parameters"></a><b><font size="+2">Entering
     Parameters</font></b><br>
@@ -119,7 +134,7 @@
       <br>
        The initial continuous set is the set of continuous states
       that the switched continuous system may start from. Create
-      a linearcon object of class <tt>linearcon</tt> in
+      a linear constraint object of class <tt>linearcon</tt> in
       the MATLAB command window workspace using the following
       command: 
 
@@ -379,14 +394,16 @@
       <p>In addition to the m-file functions above, three global
       variables must be set prior to running a verification. The
       name of the Simulink model representing the TEDHS should be
-      entered in <tt>GLOBAL_SYSTEM</tt>. <tt>GLOBAL_PARAM</tt>
+      entered in <tt>GLOBAL_SYSTEM</tt>. <tt>GLOBAL_APARM</tt>
       should contain the name of the parameter m-file function
       described above, and the ACTL specification to be verified
       must be entered in <tt>GLOBAL_SPEC</tt>. These additional
       parameters can be entered manually at the command prompt,
       or can be set using an m-file script or function.</p>
     </blockquote>
-    
+    <a href="ver_mechanics.htm#top"><font size="-1">return to
+    top</font></a> <br>
+
     <p><a name="simulation"></a><b><font size="+2">Simulating the
     Model</font></b></p>
 
@@ -400,7 +417,9 @@
     general Simulink sinks may be used to capture or view the
     behavior of the system during a simulation (i.e. the user is
     not restricted to the blocks in the CheckMate library).</p>
-    
+    <a href="ver_mechanics.htm#top"><font size="-1">return to
+    top</font></a> 
+
     <p><a name="explore"></a><b><font size="+2">Running the
     Exploration</font></b></p>
     The explore tool is invoked from the Matlab command window by
@@ -449,7 +468,9 @@
 
     <p>This will cause the analysis to explore the trajectories
     starting from the points x=[0 1+sqrt(2) 0] and x=[0 2 0].</p>
-    
+    <a href="ver_mechanics.htm#top"><font size="-1">return to
+    top</font></a> 
+
     <p><a name="runverification"></a><b><font size="+2">Running
     the Verification</font></b></p>
     Once the model and parameters are entered, the verification
@@ -541,7 +562,9 @@
       <p><img src="image1Q2.JPG"></p>
     </center>
 
-    
+    <p><a href="ver_mechanics.htm#top"><font size="-1">return to
+    top</font></a></p>
+
     <p><b><a name="viewingresults"></a><font size="+2">Viewing
     the Results of a Verification</font></b></p>
     After a verification has been performed, CheckMate gives the
@@ -583,7 +606,16 @@
     This text file lists all of the information conatined in the
     variable.</p>
 
-    
+    <p>Also, the CheckMate routine <i>plotpoly</i> may be used to
+    visualize the result of a CheckMate verification for two or
+    three dimensional systems. Typing <tt><b>plotpoly</b></tt> at
+    the command line (after a verfication has run) will display
+    the reachable sets that resulted from the verification
+    routine.</p>
+
+    <p><a href="ver_mechanics.htm#top"><font size="-1">return to
+    top</font></a></p>
+
     <p><b><a name="hints"></a><font size="+2">Useful
     Hints</font></b></p>
     Creating a CheckMate model and performing a successful
@@ -591,7 +623,7 @@
     hints to help the user with the process. 
 
     <ul>
-      <li>When creating linearcon objects to be used in
+      <li>When creating linear constraint objects to be used in
       PTHB's, do not specify a hyperplane more than once. In
       other words, do not specify two PTHB's that share a
       hyperplane. The verification procedure may try to create
@@ -609,6 +641,8 @@
       corrupt CheckMate's analysis of the system.</li>
     </ul>
 
-    </body>
+    <p><a href="ver_mechanics.htm#top"><font size="-1">return to
+    top</font></a></p>
+  </body>
 </html>
 
