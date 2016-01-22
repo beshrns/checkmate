@@ -86,7 +86,7 @@ end
 GLOBAL_ODE_PAR = odeset('RelTol',approx_param.step_rel_tol,'AbsTol',approx_param.step_abs_tol);
 
 % Struct with parameters for numerical ODE solution:
-GLOBAL_OPTIM_PAR = optimset('Display','off','LargeScale','off');
+GLOBAL_OPTIM_PAR = optimset('Display','off','LargeScale','on');
 
 
 return

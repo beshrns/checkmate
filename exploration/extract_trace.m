@@ -132,7 +132,7 @@ else
     % field of the last state in the trace.
     terminal = 1;
     for k = 1:length(trace{N}.q)
-        s=trace{N}.q(k)+1
+        s=trace{N}.q(k);
         if ~(sysinfo.fsmbList{k}.states{s}.terminal)
             terminal = 0;
             break;

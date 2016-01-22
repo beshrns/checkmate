@@ -75,8 +75,9 @@ for k = 1:length(fsmbHandle)
   transitionsAll = sf('get',parent_chart,'.transitions');
   states = {};
   for l = 1:length(state_id)
-    state_number = get_state_number(state_id(l))+1;
-    states{state_number}.name = sf('get',state_id(l),'.name');
+    state_number = get_state_number(state_id(l));
+    n = sf('get',state_id(l),'.name');
+    states{state_number}.name = n;
     transitions = sf('find',transitionsAll,'.src.id',state_id(l));
     states{state_number}.terminal = isempty(transitions);
   end

@@ -21,7 +21,7 @@ function fsmbH = trace_scsb_input(scsbH,port)
 % Last changed by Ansgar 09/16/2002
 
 % Check to make sure that the specified block is an SCSB.
-if ~(strcmp(get_param(scsbH,'BlockType'),'S-Function') & ...
+if ~(strcmp(get_param(scsbH,'BlockType'),'S-Function') && ...
      strcmp(get_param(scsbH,'MaskType'),'SwitchedContinuousSystem'))
   error('Input block must be a switched continuous system block.')
 end
@@ -42,9 +42,10 @@ fsmbH = trace_mux_network(scsbH,portID);
 
 % Check to make sure that each block in the search result is an FSMB.
 for k = 1:length(fsmbH)
-  if ~(strcmp(get_param(fsmbH(k),'BlockType'),'SubSystem') & ...
+  if ~(strcmp(get_param(fsmbH(k),'BlockType'),'SubSystem') || ...
        strcmp(get_param(fsmbH(k),'MaskType'),'Stateflow'))
     msg = ['Invalid block "' get_param(fsmbH(k),'Name') ...
+           get_param(fsmbH(k),'BlockType') get_param(fsmbH(k),'MaskType') ...
            '" connected to switched continuous system block "' ...
            get_param(scsbH,'Name') '".'];
     error(msg)
@@ -58,7 +59,7 @@ end
 % all would have been caught by trace_mux_network(). Thus, the only possible
 % error, if any, is that more than one FSMB is connected to the reset port
 % of the SCSB.
-if strcmp(port,'reset') & (length(fsmbH) ~= 1)
+if strcmp(port,'reset') && (length(fsmbH) ~= 1)
   msg = ['Found more than one FSMB connected to reset port of SCSB "' ...
          get_param(scsbH,'Name') '".'];
   error(msg)
